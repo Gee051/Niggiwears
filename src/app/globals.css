@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .hoverEffect {
+    @apply duration-500 cursor-pointer;
+  }
+  .niggiLinks {
+    @apply hover:underline underline-offset-2 cursor-pointer text-gray-300 hover:text-magenta;
+  }
+
+  .shopLink{
+    @apply text-gray-400 px-4 py-1 duration-300 cursor-pointer font-sans font-bold text-lg hover:underline underline-offset-[4px]  hover:text-magenta hoverEffect border-b-gray-400 border-b-[1px] 
+  }
+
+  .shopBy{
+    @apply mt-4 hover:text-magenta text-lg
+  }
+
+  .shopBy2{
+    @apply mt-2 hover:text-magenta text-base
+  }
+}
+
+/* ============= NavLink active Start here ============== */
+nav .active li {
+  color: black;
+  font-weight: 600;
+  text-decoration: 1px underline black;
+}
+
+@media screen and (max-width: 665px) {
+  nav .active li {
+    color: white;
+    font-weight: 600;
+    text-decoration: 1px underline white;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .responsive-text {
+    font-size: 1.5rem; 
+  }
+
+  
+  @media screen and (max-width: 768px) {
+    /* Adjust the font size for the label and select elements on smaller screens */
+    .responsive-label {
+      font-size: 0.8rem; /* Example: change the font size for smaller screens */
+    }
+  
+    .responsive-select {
+      width: 60px; /* Example: change the width for smaller screens */
+      font-size: 0.7rem; /* Example: change the font size for smaller screens */
+    }
+  }
+}
+/* ============= NavLink active End here ================ */
