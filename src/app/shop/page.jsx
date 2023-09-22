@@ -22,6 +22,7 @@ const Shop = () => {
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
   const [hoveredWearIndex, setHoveredWearIndex] = useState(null);
+  
 
 
   const toggleSidebar = () => {
@@ -46,7 +47,7 @@ const Shop = () => {
     setSortBy(sortOption);
   };
 
-  
+
 
 
   const filteredProducts = paginationItems.filter((item) => {
@@ -55,6 +56,8 @@ const Shop = () => {
     const brandMatch = selectedBrand === "All" || item.brand === selectedBrand;
     return categoryMatch && brandMatch;
   });
+
+  
 
   if (sortBy === "lowToHigh") {
     filteredProducts.sort(
@@ -100,8 +103,6 @@ const Shop = () => {
             <option value="18">18</option>
             <option value="30">30</option>
             <option value="60">60</option>
-            <option value="75">75</option>
-            <option value="90">90</option>
           </select>
         </div>
       </div>
@@ -395,7 +396,7 @@ const Shop = () => {
                   <Image
                     src={product.images[0]}
                     alt={product.title}
-                    width={200}
+                    width={400}
                     height={150}
                     className="object-contain w-96 h-72 cursor-pointer rounded-t-lg"
                   />

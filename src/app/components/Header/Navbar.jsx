@@ -11,10 +11,29 @@ import Flex from "../Niggidesigns/Flex";
 
 
 const Header = () => {
+  const [scrolling, setScrolling] = useState(false);
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
   const [category, setCategory] = useState(false);
   const [brand, setBrand] = useState(false);
+
+
+
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
 
     useEffect(() => {
@@ -33,7 +52,10 @@ const Header = () => {
 
 
   return (
-    <div className="w-full h-20 bg-white sticky top-0 z-50 border-b-[1px] border-b-gray-200">
+<div className={`w-full h-20 border-b-[1px] sticky top-0 border-b-gray-200 gap-2 px-4 shadow-lg z-50 ${
+      scrolling ? "bg-white text-black" : "bg-gray-600 text-white"
+    }`}
+  >
           <nav className="h-full px-4 max-w-container mx-auto relative">
             <Flex className="flex items-center justify-between h-full">
             <Link href="/">
@@ -53,7 +75,7 @@ const Header = () => {
                       {navBarList.map(({ _id, title, link}) => (
                         <Link
                           key={_id}
-                          className="flex font-normal font-serif hover:font-bold w-20 h-6 justify-center items-center px-12 text-base text-black hover:underline underline-offset-[4px] decoration-[1px] hover:text-magenta md:border-r-[2px] border-magenta hoverEffect last:border-r-0"
+                          className="flex font-normal font-serif hover:font-bold w-20 h-6 justify-center items-center px-12 text-base hover:underline underline-offset-[4px] decoration-[1px] hover:text-magenta md:border-r-[2px] border-magenta hoverEffect last:border-r-0"
                           href={link}
                         
                         >
@@ -139,7 +161,9 @@ const Header = () => {
                           transition={{ duration: 0.4 }}
                           className="text-lg font-bold flex flex-col gap-1"
                         >
+                         <Link href="/shop?brand=nike">
                           <li className="niggiLinks">Nike</li>
+                          </Link>
                           <li className="niggiLinks">Puma</li>
                           <li className="niggiLinks">Adidas</li>
                         </motion.ul>

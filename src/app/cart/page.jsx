@@ -7,9 +7,14 @@ import Link from "next/link";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import numeral from "numeral";
+import { loadStripe } from "@stripe/stripe-js";
+// import axios from "axios";
+
 
 const Cart = () => {
   const dispatch = useDispatch();
+
+  // const stripePromise = loadStripe(process.env.stripe_public_key);
   const productData = useSelector((state) => state.niggi.productData);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -26,6 +31,30 @@ const Cart = () => {
 
   // Determine if the cart is empty
   const isCartEmpty = productData.length === 0;
+
+  // const handleCheckout = async () => {
+  //   try {
+  //     const stripe = await stripePromise;
+
+  //     const checkoutSession = await axios.post("checkout", {
+  //       items: productData,
+  //     });
+
+
+  //     const result = await stripe?.redirectToCheckout({
+  //       lineItems: checkoutSession.data.line_items,
+  //     });
+  
+  //     if (result?.error) {
+  //       throw new Error(result.error.message);
+  //     }
+  //   } catch (error) {
+  //     // Handle and display the error to the user (e.g., using toast or an alert)
+  //     console.error("Checkout error:", error.message);
+  //     toast.error("An error occurred during checkout. Please try again.");
+  //   }
+  // };
+  
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,10 +96,14 @@ const Cart = () => {
                 Delivery fees not included
               </div>
             </div>
-
-            <button className="text-right bg-magenta text-white py-4 px-12 mt-4 block mx-auto rounded-md hover:scale-105 hover:transition ">
+<Link href="/checkout">
+<button className="text-right bg-magenta text-white py-4 px-12 mt-4 block mx-auto rounded-md hover:scale-105 hover:transition "
+            //  onClick={handleCheckout}
+            >
               Checkout
             </button>
+</Link>
+          
           </div>
         </div>
       )}

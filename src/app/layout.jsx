@@ -1,8 +1,8 @@
 "use client";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Header from "./components/Header/Header";
-import HeaderBottom from "./components/Header/HeaderBottom";
+import Header from "./components/Header/Navbar";
+import HeaderBottom from "./components/Header/NavbarBottom";
 import Footer from "./components/Footer";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
@@ -13,13 +13,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 
 
-export const metadata = {
-  title: "Niggiwears",
-  description: "AOG",
-};
+
 
 export default function RootLayout({ children }) {
   return (
+    
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <html lang="en">

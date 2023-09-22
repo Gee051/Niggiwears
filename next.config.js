@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-module.exports = nextConfig;
-
 module.exports = {
   env: {
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    DB_URI:"mongodb://localhost:27017/niggiwears",
+    NEXTAUTH_SECRET:"allonGod"
   },
 
   images: {

@@ -1,105 +1,116 @@
 "use client"
-import { useState } from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import React, { useState } from "react";
 
-const LoginPage = () => {
-  // State for login form fields
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
 
-  // Function to handle form submission
-  const handleLogin = (e) => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setIsInvalid(false); 
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setIsInvalid(false); 
+  };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // Add your authentication logic here
+    if (!email || !password) {
+      setIsInvalid(true); 
+      return;
+    }
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result.error) {
+        // Handle authentication error here (you can use state to display an error message)
+        console.error("Authentication error:", result.error);
+      } else {
+        // Authentication successful, you can handle the redirect or other actions here
+        console.log("Authentication successful");
+        // Redirect the user to a protected page
+        // router.push("/dashboard"); // Make sure to import the router or use Next.js' useRouter hook
+      }
+    } catch (error) {
+      console.error("An error occurred during authentication:", error);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-opacity-50">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg m-3shadow-lg">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Image
-            src="/assets/logo.png"
-            alt="Logo"
-            width={160}
-            height={100}
-            className="mx-auto h-24 w-auto"
-          />
-          <h2 className="mt-2 text-3xl font-extrabold text-gray-900">
-            Log in to Your Account
-          </h2>
-        </div>
-        
-        <form className="space-y-6" onSubmit={handleLogin}>
-          <div>
-            <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-              Email address
-            </label>
+    <div className="bg-cover min-h-screen flex flex-col justify-center items-center" style={{ backgroundImage: `url('/assets/cloth1.jpg')` }}>
+      <div className="bg-white w-full sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 p-6 md:p-8 sm:mx-3 flex flex-col rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
+        <form className="flex flex-col" onSubmit={handleFormSubmit}>
+          <div className={`mb-4 ${isInvalid ? 'border-red-500' : ''}`}>
+            
+            <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
             <input
-              id="email-address"
-              name="email"
               type="email"
-              autoComplete="email"
-              required
+              id="email"
+              name="email"
+              className={`w-full p-2 border rounded-md ${isInvalid ? 'border-red-500' : ''}`}
+              placeholder="Enter your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-sm focus:ring-magenta focus:border-magenta sm:text-sm"
-              placeholder="Email address"
+              onChange={handleEmailChange}
             />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
+          <div className={`mb-4 ${isInvalid ? 'border-red-500' : ''}`}>
+            <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
             <input
+              type="password"
               id="password"
               name="password"
-              type="password"
-              autoComplete="current-password"
-              required
+              className={`w-full p-2 border rounded-md ${isInvalid ? 'border-red-500' : ''}`}
+              placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-sm focus:ring-magenta focus:border-magenta sm:text-sm"
-              placeholder="Password"
+              onChange={handlePasswordChange}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-magenta focus:ring-magenta border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-magenta hover:text-magenta-dark"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-magenta hover:bg-magenta-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-magenta"
-            >
-              Log In
-            </button>
-          </div>
+
+          <button
+            type="submit"
+            className={`bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 mb-4 ${isInvalid ? 'cursor-not-allowed opacity-50' : ''}`}
+            disabled={isInvalid}
+          >
+            Login
+          </button>
         </form>
+        <div className="flex justify-center">
+          <hr className="border-gray-300 border w-full mr-2" />
+          <span className="text-gray-500">OR</span>
+          <hr className="border-gray-300 border w-full ml-2" />
+        </div>
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 mt-4 mb-2"
+        >
+          Sign in with Google
+        </button>
+        <p className="text-sm flex justify-center text-gray-600">
+          Don`t have an account yet?{" "}
+          <Link href="/signup" className="hover:text-magenta hover:underline">
+            Sign Up
+          </Link>
+        </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default Login;

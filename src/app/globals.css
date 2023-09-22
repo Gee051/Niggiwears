@@ -24,6 +24,8 @@
   .shopBy2{
     @apply mt-2 hover:text-magenta text-base
   }
+
+  
 }
 
 /* ============= NavLink active Start here ============== */
@@ -48,15 +50,28 @@ nav .active li {
 
   
   @media screen and (max-width: 768px) {
-    /* Adjust the font size for the label and select elements on smaller screens */
+ 
     .responsive-label {
-      font-size: 0.8rem; /* Example: change the font size for smaller screens */
+      font-size: 0.8rem; 
     }
   
     .responsive-select {
-      width: 60px; /* Example: change the width for smaller screens */
-      font-size: 0.7rem; /* Example: change the font size for smaller screens */
+      width: 60px; 
+      font-size: 0.7rem; 
     }
   }
-}
-/* ============= NavLink active End here ================ */
+  
+    .responsive-unseen {
+      display: none; 
+    }
+
+    
+  }
+  
+  
+  @media screen and (max-width: 1022px) {
+  .responsive-user{
+    left: 20%;
+    width: 150px;
+  }
+  }

@@ -34,6 +34,8 @@ export default function Page({ params }) {
   const relatedItems = findRelateditems(itemType, wears.id);
   const [selectedSize, setSelectedSize] = useState("");
   const [showSizeError, setShowSizeError] = useState(false);
+  const isClothingOrAccessories = wears.category === "clothing" || wears.category === "accessories";
+  const isFootwear = wears.category === "footwear";
 
  
   
@@ -82,11 +84,11 @@ export default function Page({ params }) {
                   <Image
                     src={image}
                     alt={`Image ${index + 1}`}
-                    width={300}
+                    width={400}
                     height={350}
                     className="h-[600px] w-full object-contain cursor-pointer"
                   />
-                  <div>
+                  <div className="hidden sm:block" >
                     <SlideNavButtons />
                   </div>
                 </div>
@@ -114,48 +116,67 @@ export default function Page({ params }) {
 
           <div className="flex items-center space-x-4 md:space-x-2 p-3">
             <div className="text-base md:text-xl font-semibold">Size:</div>
-            <div className="flex items-center space-x-2 ">
-              <button
-                className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-                  selectedSize === "XS" ? "bg-magenta" : ""
-                }`}
-                onClick={() => handleSizeClick("XS")}
-              >
-                XS
-              </button>
-              <button
-                className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-                  selectedSize === "S" ? "bg-magenta" : ""
-                }`}
-                onClick={() => handleSizeClick("S")}
-              >
-                S
-              </button>
-              <button
-                className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-                  selectedSize === "M" ? "bg-magenta" : ""
-                }`}
-                onClick={() => handleSizeClick("M")}
-              >
-                M
-              </button>
-              <button
-                className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-                  selectedSize === "L" ? "bg-magenta" : ""
-                }`}
-                onClick={() => handleSizeClick("L")}
-              >
-                L
-              </button>
-              <button
-                className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-                  selectedSize === "XL" ? "bg-magenta" : ""
-                }`}
-                onClick={() => handleSizeClick("XL")}
-              >
-                XL
-              </button>
-            </div>
+            <div className="flex items-center space-x-2 flex-wrap gap-2">
+    {isClothingOrAccessories && (
+      <>
+        <button
+          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+            selectedSize === "XS" ? "bg-magenta" : ""
+          }`}
+          onClick={() => handleSizeClick("XS")}
+        >
+          XS
+        </button>
+        <button
+          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+            selectedSize === "S" ? "bg-magenta" : ""
+          }`}
+          onClick={() => handleSizeClick("S")}
+        >
+          S
+        </button>
+        <button
+          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+            selectedSize === "M" ? "bg-magenta" : ""
+          }`}
+          onClick={() => handleSizeClick("M")}
+        >
+          M
+        </button>
+        <button
+          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+            selectedSize === "L" ? "bg-magenta" : ""
+          }`}
+          onClick={() => handleSizeClick("L")}
+        >
+          L
+        </button>
+        <button
+          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+            selectedSize === "XL" ? "bg-magenta" : ""
+          }`}
+          onClick={() => handleSizeClick("XL")}
+        >
+          XL
+        </button>
+      </>
+    )}
+    {isFootwear && (
+      <>
+        {Array.from({ length: 16 }, (_, index) => (
+          <button
+            key={index}
+            className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+              selectedSize === (28 + index).toString() ? "bg-magenta" : ""
+            }`}
+            onClick={() => handleSizeClick((28 + index).toString())}
+          >
+            {28 + index}
+          </button>
+        ))}
+      </>
+    )}
+  </div>
           </div>
           {showSizeError && (
             <p className="text-red-500 text-base font-extrabold">
