@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 // import { PersistGate } from "redux-persist/integration/react";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
-    
+    <AuthProvider>
     <Provider store={store}>
       {/* <PersistGate loading={null} persistor={persistor}> */}
       <html lang="en">
@@ -30,5 +31,6 @@ export default function RootLayout({ children }) {
       </html>
       {/* </PersistGate> */}
     </Provider>
+     </AuthProvider>
   );
 }

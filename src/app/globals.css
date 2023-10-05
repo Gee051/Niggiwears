@@ -74,4 +74,66 @@ nav .active li {
     left: 20%;
     width: 150px;
   }
+}
+
+  .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0;
+  }
+  
+  .input-box input:focus~label,
+  .input-box input:valid~label{
+      top: -5px;
+      color: magenta;
+  }
+  
+  .input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid white;
+    padding-right: 23px;
+    font-size: 15px;
+    color: white;
+    font-weight: 500;
+    transition: .5s;
+  }
+  
+  .input-box input:focus,
+  .input-box input:valid {
+    border-bottom-color: magenta ;
+  
+  }
+  
+  .input-label{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: white;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  
+  
+  .icon{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: white;
+    transition: .5s;
+   
+  }
+  
+  .input-box input:focus~span,
+  .input-box input:valid~span{
+      color: magenta;
   }

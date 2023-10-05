@@ -132,7 +132,7 @@ export const paginationItems = [
       category: "clothing",
       brand:"nike",
       title: "Nike Dri-FIT ADV AeroSwift",
-      description: "A moisture-wicking and breathable round neck shirt by Nike.",
+      description: "Comfortable Shorts",
       price: "6,500",
       images:["https://github.com/Gee051/CapstoneFrontendImages/blob/main/Clothings/Nshorts2front.jpg?raw=true",
       "https://github.com/Gee051/CapstoneFrontendImages/blob/main/Clothings/Nshorts2back.jpg?raw=true"

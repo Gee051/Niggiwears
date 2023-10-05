@@ -1,26 +1,9 @@
-import React from 'react';
-import { useSession } from 'next-auth/react';
+import UserInfo from "../components/UserInfo";
 
-export default function CheckoutPage() {
-  const { data: session } = useSession();
-
-  return (
-    <div className='flex m-3 p-3 h-auto lg:h-32 flex-col justify-center items-center gap-5'>
-      {session ? (
-        <>
-          <h1 className='font-extrabold text-4xl lg:text-6xl text-center'>
-            Payment Gateway will soon be done.
-          </h1>
-          <p className='text-lg lg:text-2xl text-center'>I still dey learn.</p>
-        </>
-      ) : (
-        <p className='text-lg lg:text-2xl text-center'>
-          Please <a href="/login">log in</a> to access the payment gateway.
-        </p>
-      )}
-    </div>
-  );
+export default function Dashboard() {
+  return <UserInfo />;
 }
+
 
 
 
