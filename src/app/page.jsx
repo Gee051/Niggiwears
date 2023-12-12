@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { paginationItems } from './components/NiggiLinks/page';
 import Image from 'next/image';
-import SlideNavButtons from './shop/SlideButtons';
+import SlideButtons from './components/SlideButton';
 
 
 SwiperCore.use([Navigation ]);
@@ -66,13 +66,13 @@ const Page = () => {
       <div className='mb-16 pt-9'>
         <h1 className='px-7 text-4xl mb-3 mt-2 font-bold'>Top picks for you</h1>
         <Swiper
-          navigation
+          navigation={false}
           spaceBetween={10}
           slidesPerView={slidesPerView}
-          className='py-3'
+          className='py-3 '
         >
-          {shuffledCloth.slice(0, 15).map((item, index) => (
-            <SwiperSlide key={index}>
+          {shuffledCloth.slice(0, 15).map((item) => (
+            <SwiperSlide key={item.id}>
               <Link href={`/shop/${item.id}`}>
                
                   <Image
@@ -88,9 +88,14 @@ const Page = () => {
             
             </SwiperSlide>
           ))}
+          <div className="hidden sm:block " >
+              <SlideButtons />
+          </div>
         </Swiper>
       </div>
+        
       <div className='m-3 p-3'>
+      
   <h1 className='px-4 sm:px-7 text-2xl md:text-4xl mb-3 mt-2 font-bold'>Branded Styles</h1>
    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 p-2">
     {filteredItemsArrays[0].map((item, index) => (
@@ -121,6 +126,7 @@ const Page = () => {
     ))}
   </div>
 </div>
+
 
 <div className='mt-3'>
   <h1 className='px-4 sm:px-7 text-2xl md:text-4xl mb-3 mt-2 font-bold'>Fashion In Footwears</h1>

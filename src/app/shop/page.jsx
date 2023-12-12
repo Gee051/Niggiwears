@@ -1,16 +1,16 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { paginationItems } from "../components/NiggiLinks/page";
-import { FiX } from "react-icons/fi";
-import { BiSolidSortAlt } from "react-icons/bi";
-import { motion } from "framer-motion";
 import { ImCart } from "react-icons/im";
 import { GoHeart } from "react-icons/go";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/niggiSlice";
-import { ToastContainer, toast } from 'react-toastify';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { addToFav } from "../redux/niggiFavSlice";
+
 
 
 const Shop = () => {
@@ -22,24 +22,50 @@ const Shop = () => {
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
   const [hoveredWearIndex, setHoveredWearIndex] = useState(null);
+  const [slidesPerView, setSlidesPerView] = useState(6);
   
 
 
-  const toggleSidebar = () => {
-    setSidenav(!sidenav); 
-  };
+  // const toggleSidebar = () => {
+  //   setSidenav(!sidenav); 
+  // };
 
   useEffect(() => {
-    let ResponsiveMenu = () => {
+    const handleResponsiveMenu = () => {
       if (window.innerWidth < 768) {
         setShowMenu(false);
       } else {
         setShowMenu(true);
       }
     };
-    ResponsiveMenu();
-    window.addEventListener("resize", ResponsiveMenu);
+  
+    const handleResponsiveSwiper = () => {
+      if (window.innerWidth < 390) {
+        setSlidesPerView(3);
+      } else if(window.innerWidth < 480){
+        setSlidesPerView(4);
+      }else if(window.innerWidth < 600){
+        setSlidesPerView(5);
+      }
+      else  {
+        setSlidesPerView(6);
+      }
+    };
+  
+
+    handleResponsiveMenu();
+    handleResponsiveSwiper();
+  
+   
+    window.addEventListener("resize", handleResponsiveMenu);
+    window.addEventListener("resize", handleResponsiveSwiper);
+  
+    return () => {
+      window.removeEventListener("resize", handleResponsiveMenu);
+      window.removeEventListener("resize", handleResponsiveSwiper);
+    };
   }, []);
+  
 
   
 
@@ -107,158 +133,73 @@ const Shop = () => {
         </div>
       </div>
 
+      {!showMenu && (
+  <div className="w-full  font-bold text-lg gap-3">
+    <h2 className="px-2">Filter By:</h2>
+    <Swiper
+      spaceBetween={20} 
+      slidesPerView={slidesPerView} 
+    >
+      {/* All */}
+      
+      <SwiperSlide>
+        <button className="px-2" onClick={() => setSelectedCategory("All")}>All</button>
+      </SwiperSlide>
 
-      {sidenav ? (
-          <FiX 
-            onClick={toggleSidebar}
-            className="text-2xl font-bold inline-block md:hidden cursor-pointer"
-          />
-        ) : (
-          <BiSolidSortAlt 
-            onClick={toggleSidebar}
-            className="text-2xl font-bold inline-block md:hidden cursor-pointer"
-          />
-        )}
-     
+      {/* Clothing */}
+      <SwiperSlide>
+        <button onClick={() => setSelectedCategory("clothing")}>Clothing</button>
+      </SwiperSlide>
+
+      {/* Footwear */}
+      <SwiperSlide>
+        <button   className="pl-3" onClick={() => setSelectedCategory("footwear")}>Footwear</button>
+      </SwiperSlide>
+
+      {/* Accessories */}
+      <SwiperSlide>
+        <button   className="pl-3" onClick={() => setSelectedCategory("accessories")}>Accessories</button>
+      </SwiperSlide>
+
+      {/* Nike */}
+      <SwiperSlide>
+        <button  className="pl-7" onClick={() => setSelectedBrand("nike")}>Nike</button>
+      </SwiperSlide>
+
+      {/* Adidas */}
+      <SwiperSlide>
+        <button  className="pl-3" onClick={() => setSelectedBrand("adidas")}>Adidas</button>
+      </SwiperSlide>
+
+      {/* Puma */}
+      <SwiperSlide>
+        <button className="pl-3" onClick={() => setSelectedBrand("puma")}>Puma</button>
+      </SwiperSlide>
+
+      {/* Price Low to High */}
+      <SwiperSlide>
+        <button className="pl-3"  onClick={() => handleSortByClick("lowToHigh")}>Price Low to High</button>
+      </SwiperSlide>
+
+      {/* Price High to Low */}
+      <SwiperSlide>
+        <button  className="pl-3" onClick={() => handleSortByClick("highToLow")}>Price High to Low</button>
+      </SwiperSlide>
+      
+    </Swiper>
+  </div>
+)}
+
+
+   
 
       <div className=" w-full h-full container m-3 px-4 p-3 flex gap-10">
         {/* Sidebar */}
 
-        {sidenav && (
-          <div className=" absolute left-0 w-64 bg-black m-3 p-4 text-gray-200 bg-opacity-80 z-40 rounded">
-            <motion.div
-              initial={{ x: -300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="w-[80%] h-[30%] relative"
-            >
-              <div>
-                <div>
-                  <h2 className="text-lg font-bold">Shop by Category</h2>
-                  <ul>
-                    <li>
-                      <button
-                        onClick={() => setSelectedCategory("All")}
-                        className={`shopBy2 ${
-                          selectedCategory === "All" ? "font-bold" : ""
-                        }`}
-                      >
-                        All
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedCategory("clothing")}
-                        className={`shopBy2 ${
-                          selectedCategory === "clothing" ? "font-bold" : ""
-                        }`}
-                      >
-                        Clothing
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedCategory("footwear")}
-                        className={`shopBy2 ${
-                          selectedCategory === "footwear" ? "font-bold" : ""
-                        }`}
-                      >
-                        Footwear
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedCategory("accessories")}
-                        className={`shopBy2 ${
-                          selectedCategory === "accessories" ? "font-bold" : ""
-                        }`}
-                      >
-                        Accessories
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="mt-6">
-                  <h2 className="text-lg font-bold ">Shop by Brand</h2>
-                  <ul>
-                    <li>
-                      <button
-                        onClick={() => setSelectedBrand("All")}
-                        className={`shopBy2 ${
-                          selectedBrand === "All" ? "font-bold" : ""
-                        }`}
-                      >
-                        All
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedBrand("nike")}
-                        className={`shopBy2 ${
-                          selectedBrand === "nike" ? "font-bold" : ""
-                        }`}
-                      >
-                        Nike
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedBrand("adidas")}
-                        className={`shopBy2 ${
-                          selectedBrand === "adidas" ? "font-bold" : ""
-                        }`}
-                      >
-                        Adidas
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => setSelectedBrand("puma")}
-                        className={`shopBy2 ${
-                          selectedBrand === "puma" ? "font-bold" : ""
-                        }`}
-                      >
-                        Puma
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="my-6">
-                  <h2 className="text-lg font-bold">Sort by Price</h2>
-                  <ul>
-                    <li>
-                      <button
-                        onClick={() => handleSortByClick("lowToHigh")}
-                        className={`shopBy2 ${
-                          sortBy === "lowToHigh" ? "font-bold" : ""
-                        }`}
-                      >
-                        Low to High
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleSortByClick("highToLow")}
-                        className={`shopBy2 ${
-                          sortBy === "highToLow" ? "font-bold" : ""
-                        }`}
-                      >
-                        High to Low
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-           
-            </motion.div>
-          </div>
-        )}
 
 
       {showMenu && (
-        <div className="w-72">
+        <div className="w-1/4">
           <div>
             <h2 className="text-2xl font-bold">Shop by Category</h2>
             <ul>
@@ -381,9 +322,9 @@ const Shop = () => {
 
         {/* Product Listing */}
 
-        <div className="w-full p-2 flex flex-wrap ">
+        <div className=" w-full flex flex-wrap ">
         
-        <div className="grid grid-cols-1 sm:grid-cols-2   xl:grid-cols-4 lg:grid-cols-3 gap-4 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2   xl:grid-cols-4 lg:grid-cols-3 gap-4">
         {filteredProducts.slice(0, productsPerPage).map((product, index) => (
             <div
               key={product.id}
@@ -396,9 +337,9 @@ const Shop = () => {
                   <Image
                     src={product.images[0]}
                     alt={product.title}
-                    width={400}
-                    height={150}
-                    className="object-contain w-96 h-72 cursor-pointer rounded-t-lg"
+                    width={550}
+                    height={160}
+                    className="object-contain w-[400px] h-72 cursor-pointer rounded-t-lg"
                   />
                 </div>
                 <div className="pt-2">
@@ -438,7 +379,7 @@ const Shop = () => {
                         description:product.description,
                         main_des:product.main_des
                       })
-                      ) & toast.success(`${product.title} is added `)
+                      ) 
                     }
                   // disabled={addedItems.includes(product.id)}
                   // title={
@@ -449,7 +390,22 @@ const Shop = () => {
                 >
                   <ImCart />
                 </button>
-                <button className="p-2 bg-white shadow-md rounded hover:bg-magenta">
+                  <button className="p-2 bg-white shadow-md rounded hover:bg-magenta" 
+                    onClick={() => 
+                      dispatch(
+                        addToFav({
+                          id:product.id,
+                          title:product.title,
+                          category:product.category,
+                          brand:product.brand,
+                          images:product.images,
+                          price: product.price,
+                          quantity:1,
+                          description:product.description,
+                          main_des:product.main_des
+                        })
+                        )
+                      }>
                   <GoHeart />
                 </button>
               </div>
@@ -458,18 +414,7 @@ const Shop = () => {
         </div>
       </div>
       </div>
-      <ToastContainer
-position="bottom-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+
 
     </div>
   );

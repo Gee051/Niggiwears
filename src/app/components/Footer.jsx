@@ -1,9 +1,32 @@
-import React from 'react';
+"use client"
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { FiTwitter, FiFacebook, FiInstagram } from 'react-icons/fi';
+import { FiTwitter, FiInstagram } from 'react-icons/fi';
+import { FaTiktok } from "react-icons/fa";
+import { useState } from 'react';
 
 const Footer = () => {
+
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const isSuccessful = message.includes('Thanks for subscribing');
+
+  
+  const messageClass = isSuccessful
+    ? 'text-green-500 font-bold text-center pt-2 text-lg px-3'
+    : 'text-red-600 font-semibold text-center pt-2 text-lg px-3';
+
+  const handleSubscribe = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(email)) {
+      setMessage('Thanks for subscribing');
+      setEmail(''); 
+    } else {
+      setMessage('Invalid email');
+    }
+  };
+
   return (
     <footer className="bg-gray-800 text-white">
       <div className="max-w-screen-2xl mx-auto py-8 px-4 sm:px-8 md:flex md:justify-between md:items-center border-b z-30">
@@ -21,12 +44,15 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2 justify-end">
             <input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-gray-700 text-white px-4 py-2 rounded-lg"
+                type="email"
+                placeholder="Enter your email"
+                className="bg-gray-700 text-white px-4 py-2 rounded-lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
             />
-            <button className=" px-4 py-2 bg-magenta text-white rounded-lg hover:scale-105 hover:transition cursor-pointer">Subscribe</button>
+            <button className=" px-4 py-2 bg-magenta text-white rounded-lg hover:scale-105 hover:transition cursor-pointer" onClick={handleSubscribe}>Subscribe</button>
           </div>
+          {message && <div className={messageClass}>{message}</div>}
         </div>
       </div>
       <div className="max-w-screen-2xl mx-auto py-8 px-4 sm:px-8">
@@ -40,17 +66,17 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-2">Follow Us</h3>
             <div className="flex gap-2 font-bold text-2xl">
               <Link href="/"><FiTwitter className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta' /></Link>
-              <Link href="/"><FiFacebook className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta' /></Link>
+              <Link href="/"><FaTiktok className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta' /></Link>
               <Link href="/"><FiInstagram className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta' /></Link>
             </div>
           </div>
           <div className="mb-4">
             <h3 className="text-xl font-bold mb-2">Quick Links</h3>
             <ul className="text-sm">
-              <li><Link href="/">HOME</Link></li>
-              <li><Link href="/cloth">CLOTHING</Link></li>
-              <li><Link href="/foot">FOOTWEARS</Link></li>
-              <li><Link href="/access">ACCESSORIES</Link></li>
+              <li className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/">HOME</Link></li>
+              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline' ><Link  href="/cloth">SHOP</Link></li>
+              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/foot">ABOUT US</Link></li>
+              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/access">CONTACT</Link></li>
             </ul>
           </div>
         </div>

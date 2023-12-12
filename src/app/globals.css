@@ -25,6 +25,10 @@
     @apply mt-2 hover:text-magenta text-base
   }
 
+  textarea {
+    @apply shadow-md px-3 py-2 border border-slate-300;
+  }
+
   
 }
 
@@ -75,6 +79,8 @@ nav .active li {
     width: 150px;
   }
 }
+
+
 
   .input-box{
     position: relative;

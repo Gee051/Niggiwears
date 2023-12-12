@@ -6,29 +6,30 @@ import SwiperCore from 'swiper/core';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Image from 'next/image';
+import Link from 'next/link';
 
 SwiperCore.use([Pagination, Autoplay]);
 
 const slides = [
   {
     image: '/assets/clothlogo.avif',
-    heading: 'Slide 1 Heading',
-    text: 'This is the text for slide 1.',
+    heading: 'Elevate Your Wardrobe',
+    text: ' Explore NiggiWears exclusive collection of high-quality, branded apparel with fashion that speaks of excellence and sophistication.'
   },
   {
     image: '/assets/cloth2.jpg',
-    heading: 'Slide 2 Heading',
-    text: 'This is the text for slide 2.',
+    heading: 'Quality Redefined',
+    text: ' NiggiWears redefines quality in every stitch exhibiting durability, and unmatched elegance.',
   },
   {
     image: '/assets/shoe2.webp',
-    heading: 'Slide 3 Heading',
-    text: 'This is the text for slide 3.',
+    heading: 'Discover Iconic Brands',
+    text: 'Uncover the world of iconic brands at NiggiWears.'
   },
   {
     image: '/assets/home1.webp',
-    heading: 'Slide 4 Heading',
-    text: 'This is the text for slide 4.',
+    heading: 'Join the Elite',
+    text: 'Join the elite league of fashion enthusiasts. Shop at NiggiWears for branded attire that reflects your discerning taste and style.',
   },
 ];
 
@@ -48,12 +49,15 @@ const Banner = () => {
             alt={`Image ${index + 1}`}
             className="opacity-25 bg-center w-full h-[550px] sm:h-[450px] md[500px] lg:h-[550px] xl:h-[700px]"
             />
-            <div className="absolute left-0 top-0 h-full w-1/2 flex flex-col justify-center items-center text-white mt-6">
-              <h1 className="text-4xl p-4 md:text-6xl font-bold mb-4">{slide.heading}</h1>
-              <p className="text-lg p-2 md:text-xl mb-6">{slide.text}</p>
-              <button className="bg-magenta hover:bg-magenta text-white font-semibold py-2 px-4 rounded-full ">
+            <div className="absolute left-0 top-0 h-full w-3/4 flex flex-col justify-center items-center text-white mt-6">
+              <h1 className="text-4xl md:px-8 px-4 md:text-6xl font-bold mb-4">{slide.heading}</h1>
+              <p className="text-lg px-9 md:text-xl mb-6 ">{slide.text}</p>
+              <Link href="/shop">
+                <button className="bg-magenta hover:bg-magenta text-white font-semibold py-2 px-4 rounded-full  hover:scale-105 hover:transition cursor-pointer w-[150px] h-[50px]">
                 Shop Now
               </button>
+              </Link>
+            
             </div>
           </div>
         </SwiperSlide>

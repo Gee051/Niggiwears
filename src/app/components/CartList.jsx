@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { deleteItem, incrementQty, decrementQty} from "../redux/niggiSlice";
 import { ToastContainer, toast } from 'react-toastify'; 
+import { addToFav } from "../redux/niggiFavSlice";
 
 
 const CartList =() =>{
@@ -17,9 +18,7 @@ const CartList =() =>{
   const [selectedSize, setSelectedSize] = useState("m");
   const sizes = ["xs", "s", "m", "l", "xl"];
 
-  const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value);
-  };
+  
 
 
   return (
@@ -106,14 +105,28 @@ const CartList =() =>{
           main_des:item.main_des
         })
       )} 
-      className='font-bold h-5  text-xl  w-8 flex items-center justify-center p-2 hover:bg-gray-600 hover:text-white cursor-pointer duration-300 active:bg-black'> +
+      className='font-bold h-5  text-xl  w-8 flex items-center justify-center p-2 hover:bg-gray-600 hover:text-white cursor-pointer duration-300 active:bg-black border'> +
       </button>
 </div>
               </div>
 
               <div className="flex flex-col text-xl gap-2 items-end">
                 <div className="flex gap-3 items">
-                  <button className="hover:text-magenta hover:scale-105 hover:transition cursor-pointer ">
+                  <button className="hover:text-magenta hover:scale-105 hover:transition cursor-pointer " onClick={() => 
+                      dispatch(
+                        addToFav({
+                          id:item.id,
+                          title:item.title,
+                          category:item.category,
+                          brand:item.brand,
+                          images:item.images,
+                          price: item.price,
+                          quantity:1,
+                          description:item.description,
+                          main_des:item.main_des
+                        })
+                        )
+                      }>
                     <GoHeart />
                   </button>
                   <button

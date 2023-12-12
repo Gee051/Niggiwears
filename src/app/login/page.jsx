@@ -7,7 +7,7 @@ import LoginForm from "../components/LoginForm";
 export default async function Register() {
   const session = await getServerSession(authOptions);
 
-  if (session) redirect("/dashboard");
+  if (session) redirect("/");
 
   return <LoginForm />;
 }

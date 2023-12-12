@@ -93,8 +93,8 @@ const Signup = () => {
 
   return (
     <div
-      className="bg-[#0c1a24] min-h-screen flex flex-col justify-center items-center relative ">
-      <div className=" text-white w-[350px] sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 p-6 md:p-8 sm:mx-3 flex flex-col rounded-lg border-magent relative bg-transparent border-2 border-magenta shadow-magenta overflow-hidden ">
+      className="bg-[#0c1a24] min-h-screen flex flex-col justify-center items-center relative">
+      <div className=" text-white w-[350px] sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 p-6 md:p-8 sm:mx-3 flex flex-col rounded-lg border-magent relative bg-transparent border-2 border-magenta shadow-magenta overflow-hidden m-4 ">
         <h1 className="text-3xl font-bold mb-4 text-center">Register</h1>
         <form className="flex flex-col" onSubmit={submitHandler}>
           <div className="input-box">

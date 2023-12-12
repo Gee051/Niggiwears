@@ -1,23 +1,43 @@
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { ImCart } from 'react-icons/im';
 import { GoHeart } from 'react-icons/go';
 import Image from 'next/image';
+import SwiperCore from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+import SlideButtons from './SlideButton';
+import Link from 'next/link';
+import { Navigation, Pagination } from 'swiper/modules';
+
+
+SwiperCore.use([Navigation, Pagination]);
 
 const RelatedItems = ({ relatedItems, currentItemId }) => {
   const [hoveredWearIndex, setHoveredWearIndex] = useState(null);
-  const [isMobileView, setIsMobileView] = useState(false);
+  const [swiperSlides, setSwiperSlides] = useState(4);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth < 768); // Define your mobile breakpoint here
-    };
+  
 
-    // Initial setup and event listener
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth >= 1024) {
+        setSwiperSlides(4);
+      } else if (screenWidth >= 768) {
+        setSwiperSlides(3); 
+      } else if (screenWidth >= 450) {
+        setSwiperSlides(2); 
+      } else  {
+        setSwiperSlides(1); 
+      }
+    };
+    
+
+   
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener when component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -25,12 +45,21 @@ const RelatedItems = ({ relatedItems, currentItemId }) => {
 
   return (
     <div className='p-3 m-3'>
-      <h2 className='font-bold text-2xl'>You may also like</h2>
-      <div className={`grid ${isMobileView ? 'grid-cols-2' : 'grid-cols-4'} gap-5 p-4`}>
+      <h2 className='font-bold text-3xl'>You may also like</h2>
+      
+      <Swiper
+      
+        slidesPerView={swiperSlides}
+        spaceBetween={20} 
+        navigation={false}
+        pagination={{ clickable: true }} 
+        className='py-3'
+      >
         {relatedItems.map((relatedItem, index) => (
           relatedItem.id !== currentItemId && (
-            <Link href={`/shop/${relatedItem.id}`} key={relatedItem.id}>
-              <div
+            
+            <SwiperSlide key={relatedItem.id}>
+              <Link href={`/shop/${relatedItem.id}`}
                 className="border rounded-lg p-4 m-4 shadow-md flex flex-col justify-between image-container relative"
                 onMouseEnter={() => setHoveredWearIndex(index)}
                 onMouseLeave={() => setHoveredWearIndex(null)}
@@ -48,7 +77,7 @@ const RelatedItems = ({ relatedItems, currentItemId }) => {
                   <h3 className="text-lg font-semibold mb-1 hover:text-magenta">
                     {relatedItem.title}
                   </h3>
-                  <p className="text-gray-600 text-lg">{relatedItem.description}</p>
+                  
                   <p className="text-[#286f6b] text-lg">₦{relatedItem.price}</p>
                 </div>
                 <div
@@ -67,11 +96,17 @@ const RelatedItems = ({ relatedItems, currentItemId }) => {
                     <GoHeart />
                   </button>
                 </div>
-              </div>
-            </Link>
+              </Link>
+             
+             
+            </SwiperSlide>
           )
-        ))}
-      </div>
+          ))}
+          <div className="hidden sm:block " >
+              <SlideButtons />
+              </div>
+         
+      </Swiper>
     </div>
   );
 };

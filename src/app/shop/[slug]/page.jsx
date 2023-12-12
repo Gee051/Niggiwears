@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 import { GoHeart } from "react-icons/go";
@@ -12,9 +12,9 @@ import SlideNavButtons from "../SlideButtons";
 import SwiperCore from "swiper/core";
 import RelatedItems from "@/app/components/RelatedItems";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/niggiSlice";
-import { ToastContainer, toast } from 'react-toastify';
+import { addToCart} from "../../redux/niggiSlice";
 
+import { addToFav } from "@/app/redux/niggiFavSlice";
 
 function fetchProducts(params) {
   const wears = paginationItems.find((clothing) => clothing.id === params.slug);
@@ -28,17 +28,15 @@ function findRelateditems(itemType) {
 SwiperCore.use([Navigation, Pagination]);
 
 export default function Page({ params }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const wears = fetchProducts(params);
   const itemType = wears.id.replace(/[0-9]/g, "");
   const relatedItems = findRelateditems(itemType, wears.id);
   const [selectedSize, setSelectedSize] = useState("");
   const [showSizeError, setShowSizeError] = useState(false);
-  const isClothingOrAccessories = wears.category === "clothing" || wears.category === "accessories";
+  const isClothingOrAccessories =
+    wears.category === "clothing" || wears.category === "accessories";
   const isFootwear = wears.category === "footwear";
-
- 
-  
 
   const handleSizeClick = (size) => {
     setSelectedSize(size === selectedSize ? "" : size);
@@ -53,20 +51,18 @@ export default function Page({ params }) {
       addToCart({
         id: wears.id,
         title: wears.title,
-        category: wears.category, 
-        brand: wears.brand, 
-        images: wears.images, 
-        price: wears.price, 
+        category: wears.category,
+        brand: wears.brand,
+        images: wears.images,
+        price: wears.price,
         quantity: 1,
-        description: wears.description, 
-        main_des: wears.main_des, 
-        size: selectedSize, // Include the selected size in the cart item
+        description: wears.description,
+        main_des: wears.main_des,
+        size: selectedSize, 
       })
-    ) & toast.success(`${wears.title} is added `);
+    );
 
-  
     setShowSizeError(false);
-    
   };
 
   return (
@@ -88,7 +84,7 @@ export default function Page({ params }) {
                     height={350}
                     className="h-[600px] w-full object-contain cursor-pointer"
                   />
-                  <div className="hidden sm:block" >
+                  <div className="hidden sm:block">
                     <SlideNavButtons />
                   </div>
                 </div>
@@ -117,66 +113,68 @@ export default function Page({ params }) {
           <div className="flex items-center space-x-4 md:space-x-2 p-3">
             <div className="text-base md:text-xl font-semibold">Size:</div>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
-    {isClothingOrAccessories && (
-      <>
-        <button
-          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-            selectedSize === "XS" ? "bg-magenta" : ""
-          }`}
-          onClick={() => handleSizeClick("XS")}
-        >
-          XS
-        </button>
-        <button
-          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-            selectedSize === "S" ? "bg-magenta" : ""
-          }`}
-          onClick={() => handleSizeClick("S")}
-        >
-          S
-        </button>
-        <button
-          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-            selectedSize === "M" ? "bg-magenta" : ""
-          }`}
-          onClick={() => handleSizeClick("M")}
-        >
-          M
-        </button>
-        <button
-          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-            selectedSize === "L" ? "bg-magenta" : ""
-          }`}
-          onClick={() => handleSizeClick("L")}
-        >
-          L
-        </button>
-        <button
-          className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-            selectedSize === "XL" ? "bg-magenta" : ""
-          }`}
-          onClick={() => handleSizeClick("XL")}
-        >
-          XL
-        </button>
-      </>
-    )}
-    {isFootwear && (
-      <>
-        {Array.from({ length: 16 }, (_, index) => (
-          <button
-            key={index}
-            className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
-              selectedSize === (28 + index).toString() ? "bg-magenta" : ""
-            }`}
-            onClick={() => handleSizeClick((28 + index).toString())}
-          >
-            {28 + index}
-          </button>
-        ))}
-      </>
-    )}
-  </div>
+              {isClothingOrAccessories && (
+                <>
+                  <button
+                    className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                      selectedSize === "XS" ? "bg-magenta" : ""
+                    }`}
+                    onClick={() => handleSizeClick("XS")}
+                  >
+                    XS
+                  </button>
+                  <button
+                    className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                      selectedSize === "S" ? "bg-magenta" : ""
+                    }`}
+                    onClick={() => handleSizeClick("S")}
+                  >
+                    S
+                  </button>
+                  <button
+                    className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                      selectedSize === "M" ? "bg-magenta" : ""
+                    }`}
+                    onClick={() => handleSizeClick("M")}
+                  >
+                    M
+                  </button>
+                  <button
+                    className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                      selectedSize === "L" ? "bg-magenta" : ""
+                    }`}
+                    onClick={() => handleSizeClick("L")}
+                  >
+                    L
+                  </button>
+                  <button
+                    className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                      selectedSize === "XL" ? "bg-magenta" : ""
+                    }`}
+                    onClick={() => handleSizeClick("XL")}
+                  >
+                    XL
+                  </button>
+                </>
+              )}
+              {isFootwear && (
+                <>
+                  {Array.from({ length: 16 }, (_, index) => (
+                    <button
+                      key={index}
+                      className={`border px-3 py-1 md:px-4 md:py-2 rounded-md hover:scale-105 hover:transition ${
+                        selectedSize === (28 + index).toString()
+                          ? "bg-magenta"
+                          : ""
+                      }`}
+                      onClick={() => handleSizeClick((28 + index).toString())}
+                    >
+                      {28 + index}
+                    </button>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
           {showSizeError && (
             <p className="text-red-500 text-base font-extrabold">
@@ -187,10 +185,28 @@ export default function Page({ params }) {
           <div className="flex items-center space-x-4 mt-4 md:mt-6 p-3">
             <button
               className="border-2 bg-magenta rounded-md px-6 py-3 text-black text-base md:text-xl font-bold hover:scale-105 hover:transition cursor-pointer"
-              onClick= {handleAddToCart}>
+              onClick={handleAddToCart}
+            >
               Add to Cart
             </button>
-            <button className="border px-3 py-1 md:px-4 md:py-2 rounded-md cursor-pointer bg-magenta h-10 md:h-14 hover:scale-105 hover:transition ">
+            <button
+              className="border px-3 py-1 md:px-4 md:py-2 rounded-md cursor-pointer bg-magenta h-10 md:h-14 hover:scale-105 hover:transition "
+              onClick={() =>
+                dispatch(
+                  addToFav({
+                    id: wears.id,
+                    title: wears.title,
+                    category: wears.category,
+                    brand: wears.brand,
+                    images: wears.images,
+                    price: wears.price,
+                    quantity: 1,
+                    description: wears.description,
+                    main_des: wears.main_des,
+                  })
+                ) 
+              }
+            >
               <GoHeart />
             </button>
           </div>
@@ -203,24 +219,11 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
- 
 
       <div className="related-items-container mt-6 md:mt-8">
         <RelatedItems relatedItems={relatedItems} currentItemId={wears.id} />
       </div>
 
-      <ToastContainer
-position="bottom-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
 
     </div>
   );
