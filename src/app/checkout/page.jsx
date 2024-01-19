@@ -9,7 +9,7 @@ export default async function Checkout() {
   if (!session) redirect("/");
 
   return <div>
-    <h1 className="text-5xl text-center">Hello world</h1>
+    <h1 className="text-5xl text-center p-4">Checkout page coming soon</h1>
   </div>
 }
 

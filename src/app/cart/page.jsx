@@ -63,7 +63,7 @@ const Cart = () => {
           </h2>
           <Link
             href="/shop"
-            className="mb-7 m-3 flex items-center gap-1 text-black hover:text-magenta duration-200 text-xl"
+            className="mb-7 m-3 flex items-center gap-1 text-black hover:text-magenta duration-200 text-xl pt-5"
           >
             <span>
               <HiOutlineArrowLeft />
