@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { paginationItems } from "../components/NiggiLinks/page";
+import paginationItems from "../components/NiggiLinks/paginationItems.json";
 import { ImCart } from "react-icons/im";
 import { GoHeart } from "react-icons/go";
 import Image from "next/image";

@@ -8,10 +8,10 @@ import Flex from "../Niggidesigns/Flex";
 import { useSelector } from "react-redux";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import { AiFillHeart } from "react-icons/ai";
-import { paginationItems } from "../NiggiLinks/page";
-import Image from "next/image";
+import paginationItems from "../NiggiLinks/paginationItems.json";
 import { useRouter } from "next/navigation";
 
 const HeaderBottom = () => {

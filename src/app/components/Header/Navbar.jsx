@@ -5,7 +5,7 @@ import Image from "next/image";
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { navBarList } from "@/app/components/NiggiLinks/page";
+// import { navBarList } from "@/app/components/NiggiLinks/page";
 import Flex from "../Niggidesigns/Flex";
 import { AiFillHeart } from "react-icons/ai";
 import { FaCaretDown, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
@@ -13,7 +13,8 @@ import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { paginationItems } from "../NiggiLinks/page";
+import navBarList from "../Niggilinks/navBarList.json";
+// import paginationItems from "../Niggilinks/paginationItems.json";
 import { useRouter } from "next/navigation";
 
 const Header = () => {

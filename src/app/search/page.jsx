@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { FaSearch, FaArrowLeft } from "react-icons/fa";
-import { paginationItems } from "../components/NiggiLinks/page";
+import paginationItems from "../components/NiggiLinks/paginationItems.json";  
 import Link from "next/link";
 import Image from "next/image";
 

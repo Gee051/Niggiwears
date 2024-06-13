@@ -9,7 +9,8 @@ import SwiperCore from 'swiper/core';
 import { shuffle } from 'lodash'; 
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { paginationItems } from './components/NiggiLinks/page';
+// import { paginationItems } from './components/NiggiLinks/page';
+import paginationItems from "./components/NiggiLinks/paginationItems.json";
 import Image from 'next/image';
 import SlideButtons from './components/SlideButton';
 

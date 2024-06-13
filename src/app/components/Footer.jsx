@@ -75,8 +75,8 @@ const Footer = () => {
             <ul className="text-sm">
               <li className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/">HOME</Link></li>
               <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline' ><Link  href="/cloth">SHOP</Link></li>
-              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/foot">ABOUT US</Link></li>
-              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/access">CONTACT</Link></li>
+              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/about">ABOUT US</Link></li>
+              <li  className='hover:scale-105 hover:transition cursor-pointer hover:text-magenta hover:underline'><Link href="/contact">CONTACT</Link></li>
             </ul>
           </div>
         </div>
