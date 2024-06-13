@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import { AiFillHeart } from "react-icons/ai";
-import paginationItems from "../NiggiLinks/paginationItems.json";
+import paginationItems from "../NiggiLinks/paginationItems";
 import { useRouter } from "next/navigation";
 
 const HeaderBottom = () => {

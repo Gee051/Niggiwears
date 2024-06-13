@@ -10,7 +10,7 @@ import { shuffle } from 'lodash';
 import 'swiper/css';
 import 'swiper/css/navigation';
 // import { paginationItems } from './components/NiggiLinks/page';
-import paginationItems from "./components/NiggiLinks/paginationItems.json";
+import paginationItems from "./components/NiggiLinks/paginationItems";
 import Image from 'next/image';
 import SlideButtons from './components/SlideButton';
 
