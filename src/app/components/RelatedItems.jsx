@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ImCart } from 'react-icons/im';
 import { GoHeart } from 'react-icons/go';
+import paginationItems from "../components/NiggiLinks/paginationItems";
 import Image from 'next/image';
 import SwiperCore from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,6 +9,11 @@ import 'swiper/swiper-bundle.css';
 import SlideButtons from './SlideButton';
 import Link from 'next/link';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useDispatch } from "react-redux";
+import { addToCart} from "../redux/niggiSlice";
+
+import { addToFav } from "@/app/redux/niggiFavSlice";
+
 
 
 SwiperCore.use([Navigation, Pagination]);
@@ -15,6 +21,10 @@ SwiperCore.use([Navigation, Pagination]);
 const RelatedItems = ({ relatedItems, currentItemId }) => {
   const [hoveredWearIndex, setHoveredWearIndex] = useState(null);
   const [swiperSlides, setSwiperSlides] = useState(4);
+  const dispatch = useDispatch();
+
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,9 +100,39 @@ const RelatedItems = ({ relatedItems, currentItemId }) => {
                   }}
                 >
                   <button className="p-2 bg-white shadow-md rounded hover:bg-magenta">
-                    <ImCart />
+                    <ImCart  onClick={() => 
+                    dispatch(
+                      addToCart({
+                        id:relatedItem.id,
+                        title:relatedItem.title,
+                        category:relatedItem.category,
+                        brand:relatedItem.brand,
+                        images:relatedItem.images,
+                        price: relatedItem.price,
+                        quantity:1,
+                        description:relatedItem.description,
+                        main_des:relatedItem.main_des
+                      })
+                      ) 
+                    }/>
                   </button>
-                  <button className="p-2 bg-white shadow-md rounded hover:bg-magenta">
+                  <button className="p-2 bg-white shadow-md rounded hover:bg-magenta"
+                  
+                  onClick={() => 
+                    dispatch(
+                      addToFav({
+                        id:relatedItem.id,
+                        title:relatedItem.title,
+                        category:relatedItem.category,
+                        brand:relatedItem.brand,
+                        images:relatedItem.images,
+                        price: relatedItem.price,
+                        quantity:1,
+                        description:relatedItem.description,
+                        main_des:relatedItem.main_des
+                      })
+                      )
+                    }>
                     <GoHeart />
                   </button>
                 </div>

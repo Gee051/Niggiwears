@@ -71,7 +71,7 @@ const Header = () => {
 
   return (
     <div
-      className={`w-full h-20 border-b-[1px] sticky top-0 border-b-gray-00 gap-2 px-4 shadow-lg z-50 ${
+      className={`w-full h-20 border-b-[1px] sticky top-0 border-b-gray-300 gap-2 px-4 shadow-lg z-50 ${
         scrolling ? "bg-white text-black" : "bg-neutral-800 text-white"
       }`}
     >

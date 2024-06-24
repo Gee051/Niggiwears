@@ -39,7 +39,7 @@ const Banner = () => {
       spaceBetween={0}
       slidesPerView={1}
       pagination={{ clickable: true }}
-      autoplay
+      autoplay  
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
