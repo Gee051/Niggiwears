@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactForm() {
   const [fullname, setFullname] = useState("");
@@ -9,6 +10,19 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState([]);
   const [success, setSuccess] = useState(false);
+  const [inputFocus, setInputFocus] = useState({
+    fullname: false,
+    email: false,
+    message: false,
+  });
+
+  const handleFocus = (field) => {
+    setInputFocus((prev) => ({ ...prev, [field]: true }));
+  };
+
+  const handleBlur = (field) => {
+    setInputFocus((prev) => ({ ...prev, [field]: false }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +47,7 @@ export default function ContactForm() {
       setFullname("");
       setEmail("");
       setMessage("");
-      toast.success(`${fullname}, thanks for contacting us `)
+      toast.success(`${fullname}, thanks for contacting us `);
     }
   };
 
@@ -51,7 +65,9 @@ export default function ContactForm() {
             type="text"
             id="fullname"
             placeholder="Nigii Grace"
-            className="shadow-md px-3 py-2 border border-slate-300"
+            className={`shadow-md px-3 py-2 border border-slate-300 placeholder-transition ${inputFocus.fullname || fullname ? 'input-focus' : ''}`}
+            onFocus={() => handleFocus('fullname')}
+            onBlur={() => handleBlur('fullname')}
           />
         </div>
 
@@ -63,7 +79,9 @@ export default function ContactForm() {
             type="text"
             id="email"
             placeholder="niggi@gmail.com"
-            className="shadow-md px-3 py-2 border border-slate-300"
+            className={`shadow-md px-3 py-2 border border-slate-300 placeholder-transition ${inputFocus.email || email ? 'input-focus' : ''}`}
+            onFocus={() => handleFocus('email')}
+            onBlur={() => handleBlur('email')}
           />
         </div>
 
@@ -72,10 +90,11 @@ export default function ContactForm() {
           <textarea 
             onChange={(e) => setMessage(e.target.value)}
             value={message}
-            className="h-32"
+            className={`h-32 shadow-md px-3 py-2 border border-slate-300 placeholder-transition ${inputFocus.message || message ? 'input-focus' : ''}`}
             id="message"
             placeholder="Drop a message for us....."
-            
+            onFocus={() => handleFocus('message')}
+            onBlur={() => handleBlur('message')}
           ></textarea>
         </div>
 
@@ -84,29 +103,28 @@ export default function ContactForm() {
         </button>
       </form>
 
-      <div className=" bg-slate-100 flex flex-col">
-  {error &&
-    error.map((e, index) => (
-      <div key={index} className={`${
-        success ? "text-green-800" : "text-red-600"
-      } px-5 py-2 text-lg `}>
-        {e}
+      <div className="bg-slate-100 flex flex-col">
+        {error &&
+          error.map((e, index) => (
+            <div key={index} className={`${
+              success ? "text-green-800" : "text-red-600"
+            } px-5 py-2 text-lg `}>
+              {e}
+            </div>
+          ))}
       </div>
-    ))}
-</div>
-<ToastContainer
-position="bottom-center"
-autoClose={2000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
-
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }
