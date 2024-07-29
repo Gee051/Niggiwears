@@ -1,15 +1,17 @@
 "use client"
 import React, { useState } from "react";
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper/core';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import BannerScrollbar from "./BannerScrollbar";
 
-SwiperCore.use([Pagination, Autoplay]);
+SwiperCore.use([Pagination, Autoplay, EffectFade]);
 
 const slides = [
   {
@@ -42,7 +44,11 @@ const Banner = () => {
       spaceBetween={0}
       slidesPerView={1}
       pagination={{ clickable: true }}
-      autoplay  
+      effect={'fade'}
+      autoplay={{
+        delay: 5000, 
+        disableOnInteraction: false,
+      }} 
       onSlideChange={(swiper) => setCurrentSlide(swiper.activeIndex)}
     >
       {slides.map((slide, index) => (
@@ -50,7 +56,7 @@ const Banner = () => {
           <div className="bg-black">
             <Image
               height={200}
-              width={350}
+              width={450}
               src={slide.image}
               alt={`Image ${index + 1}`}
               className="opacity-25 bg-center w-full h-[550px] sm:h-[450px] md:h-[500px] lg:h-[550px] xl:h-[700px]"
@@ -62,7 +68,7 @@ const Banner = () => {
                     initial={{ y: -50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
-                    className="text-4xl md:px-8 px-4 md:text-6xl font-bold mb-4"
+                    className="text-4xl px-9 md:text-6xl font-bold mb-4"
                   >
                     {slide.heading}
                   </motion.h1>
@@ -88,6 +94,9 @@ const Banner = () => {
                 </>
               )}
             </div>
+            <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-10 w-[50%]">
+                <BannerScrollbar currentSlide={currentSlide} totalSlides={slides.length} />
+              </div>
           </div>
         </SwiperSlide>
       ))}
